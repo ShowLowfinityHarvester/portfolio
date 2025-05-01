@@ -11,28 +11,36 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #2a2a2a;
+            background-color: #1a1a1a;
             color: #f0f0f0;
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        canvas#global-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #3a3a3a;
+            background-color: #2a2a2a;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px;
             width: 100%;
             z-index: 1000;
-            transition: top 0.3s ease-in-out;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .navbar img {
@@ -60,8 +68,8 @@
         }
 
         .nav-link:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
         }
 
         .nav-link i {
@@ -70,7 +78,7 @@
 
         .dropdown {
             position: relative;
-            display: none; 
+            display: none;
         }
 
         .dropdown-toggle {
@@ -85,8 +93,8 @@
         }
 
         .dropdown-toggle:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
         }
 
         .dropdown-menu {
@@ -94,7 +102,7 @@
             position: absolute;
             top: 100%;
             right: 0;
-            background-color: #3a3a3a;
+            background-color: #2a2a2a;
             min-width: 200px;
             border-radius: 6px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
@@ -114,8 +122,8 @@
         }
 
         .dropdown-item:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
         }
 
         #welcome-section {
@@ -124,48 +132,58 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(50, 50, 100, 0.8));
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(17, 255, 0, 0.4)); /* Doutree Green */
+            position: relative;
+            overflow: hidden;
+            transition: background 0.5s ease;
+        }
+
+        #welcome-section .container {
+            z-index: 2;
         }
 
         #welcome-section h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 500;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
             margin-bottom: 1rem;
         }
 
         #welcome-section p {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: #d0d0d0;
+        }
+
+        .typewriter {
+            display: inline-block;
+            white-space: nowrap;
+            min-width: 300px;
         }
 
         #projects {
             padding: 60px 0;
-            background-color: #333;
+            background-color: #222;
+            transition: background 0.5s ease;
+        }
+
+        #projects h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
         }
 
         .project-tile {
-            background: #3a3a3a;
+            background: #2a2a2a;
             padding: 25px;
             border-radius: 10px;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease-out forwards;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
         }
 
-        .project-tile:nth-child(2) { animation-delay: 0.2s; }
-        .project-tile:nth-child(3) { animation-delay: 0.4s; }
-
-        .project-tile img {
-            width: 100%;
-            border-radius: 5px;
-            margin-bottom: 15px;
+        .project-tile:hover {
+            transform: translateY(-5px);
         }
 
         .project-tile h3 {
@@ -193,75 +211,254 @@
         }
 
         .project-tile a:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
+        }
+
+        #python-project {
+            padding: 60px 0;
+            background-color: #1a1a1a;
+            transition: background 0.5s ease;
+        }
+
+        #python-project h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        #python-project .project-container {
+            background: #2a2a2a;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #python-project .form-group {
+            margin-bottom: 15px;
+        }
+
+        #python-project label {
+            display: block;
+            color: #e0e0e0;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        #python-project select,
+        #python-project input[type="text"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #f0f0f0;
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        #python-project select:focus,
+        #python-project input[type="text"]:focus {
+            outline: none;
+            border-color: #11ff00;
+        }
+
+        #python-project .controls {
+            margin-top: 20px;
+        }
+
+        #python-project button {
+            color: #e0e0e0;
+            background-color: #3a3a3a;
+            border: 1px solid #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        #python-project button:hover {
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
+        }
+
+        #python-project p#status {
+            color: #d0d0d0;
+            margin-top: 20px;
         }
 
         #profile {
             padding: 60px 0;
-            background-color: #2a2a2a;
+            background-color: #1a1a1a;
+            transition: background 0.5s ease;
         }
 
         #profile h2 {
-            font-size: 2.25rem;
-            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
         }
 
-        #profile ul {
-            list-style: none;
-            padding: 0;
+        .timeline {
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
+            padding: 0;
+            list-style: none;
         }
 
-        #profile ul li {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+        .timeline li {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 40px;
             color: #d0d0d0;
+            font-size: 1.1rem;
+        }
+
+        .timeline li:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: #11ff00; /* Doutree Green */
+        }
+
+        .timeline li i {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.5rem;
+            color: #11ff00; /* Doutree Green */
+            background: #1a1a1a;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .timeline li span {
+            display: block;
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        #certifications {
+            padding: 60px 0;
+            background-color: #222;
+            transition: background 0.5s ease;
+        }
+
+        #certifications h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .certification-tile {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .certification-tile i {
+            font-size: 2.5rem;
+            color: #11ff00; /* Doutree Green */
+            margin-bottom: 15px;
+        }
+
+        .certification-tile h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .certification-tile p {
+            color: #d0d0d0;
+            font-size: 1rem;
+        }
+
+        #resume {
+            padding: 60px 0;
+            background-color: #1a1a1a;
+            transition: background 0.5s ease;
+        }
+
+        #resume h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .resume-links {
+            text-align: center;
+        }
+
+        .resume-links a {
+            color: #e0e0e0;
+            background-color: #3a3a3a;
+            border: 1px solid #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .resume-links a:hover {
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
         }
 
         #social {
             padding: 60px 0;
-            background-color: #333;
+            background-color: #222;
+            transition: background 0.5s ease;
+        }
+
+        #social h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
         }
 
         .social-icons a {
             color: #e0e0e0;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: bold;
             margin: 0 15px;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 15px;
+            border-radius: 5px;
+            background: #2a2a2a;
             transition: background-color 0.3s ease, color 0.3s ease;
             text-decoration: none;
         }
 
         .social-icons a:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
         }
 
         footer {
             text-align: center;
             padding: 20px;
-            background: #3a3a3a;
+            background: #2a2a2a;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out 0.4s forwards;
         }
 
         footer p {
             margin: 0;
             font-size: 0.9rem;
             color: #b0b0b0;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         @media (max-width: 768px) {
@@ -284,37 +481,52 @@
             }
 
             #welcome-section h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             #welcome-section p {
-                font-size: 1rem;
+                font-size: 1.2rem;
             }
 
-            .project-tile {
+            .project-tile, .certification-tile {
                 padding: 15px;
             }
 
-            .project-tile h3 {
+            .project-tile h3, .certification-tile h3 {
                 font-size: 1.3rem;
             }
 
-            .project-tile a {
+            .project-tile a, .resume-links a {
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
 
             .social-icons a {
-                font-size: 1.5rem;
-                padding: 8px 12px;
+                font-size: 1.25rem;
+                padding: 12px;
             }
 
-            #profile h2 {
-                font-size: 1.8rem;
+            #python-project h2, #profile h2, #certifications h2, #resume h2, #social h2 {
+                font-size: 2rem;
             }
 
-            #profile ul li {
+            .timeline li {
                 font-size: 1rem;
+                padding-left: 30px;
+            }
+
+            .timeline li i {
+                font-size: 1.2rem;
+            }
+
+            #python-project button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            #python-project select,
+            #python-project input[type="text"] {
+                max-width: 100%;
             }
         }
 
@@ -333,33 +545,47 @@
                 padding: 5px 8px;
             }
 
-            .project-tile {
+            #welcome-section h1 {
+                font-size: 2rem;
+            }
+
+            #welcome-section p {
+                font-size: 1rem;
+            }
+
+            .project-tile, .certification-tile {
                 padding: 10px;
             }
 
-            .project-tile h3 {
+            .project-tile h3, .certification-tile h3 {
                 font-size: 1.1rem;
             }
 
             .social-icons a {
-                font-size: 1.25rem;
-                padding: 6px 10px;
+                font-size: 1rem;
+                padding: 10px;
             }
 
-            #profile h2 {
-                font-size: 1.5rem;
+            #python-project button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
+    <canvas id="global-canvas"></canvas>
+
     <nav class="navbar">
         <div style="display: flex; align-items: center;">
-            <img src="WSLF.png" alt="WSLF Logo">
+            <img src="https://www.wslfradio.org/WSLF.png" alt="WSLF Logo">
             <div class="menu-items">
                 <a class="nav-link" href="#welcome-section"><i class="fas fa-home"></i> Home</a>
                 <a class="nav-link" href="#projects"><i class="fas fa-laptop-code"></i> Projects</a>
+                <a class="nav-link" href="#python-project"><i class="fas fa-code"></i> Python Project</a>
                 <a class="nav-link" href="#profile"><i class="fas fa-user-tie"></i> Profile</a>
+                <a class="nav-link" href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
+                <a class="nav-link" href="#resume"><i class="fas fa-file-alt"></i> Resume</a>
                 <a class="nav-link" href="#social"><i class="fas fa-envelope"></i> Contact</a>
             </div>
         </div>
@@ -368,7 +594,10 @@
             <div class="dropdown-menu" id="dropdown-menu">
                 <a class="dropdown-item static-item" href="#welcome-section"><i class="fas fa-home"></i> Home</a>
                 <a class="dropdown-item static-item" href="#projects"><i class="fas fa-laptop-code"></i> Projects</a>
+                <a class="dropdown-item static-item" href="#python-project"><i class="fas fa-code"></i> Python Project</a>
                 <a class="dropdown-item static-item" href="#profile"><i class="fas fa-user-tie"></i> Profile</a>
+                <a class="dropdown-item static-item" href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
+                <a class="dropdown-item static-item" href="#resume"><i class="fas fa-file-alt"></i> Resume</a>
                 <a class="dropdown-item static-item" href="#social"><i class="fas fa-envelope"></i> Contact</a>
             </div>
         </div>
@@ -376,57 +605,151 @@
 
     <section id="welcome-section">
         <div class="container">
-            <h1>My Name Is Jayson Doutree, a Future Developer!</h1>
-            <p>Or an airline pilot. or a future developer who works in aviation. I don't know yet. (this page is under construction and is not finished)</p>
+            <h1>Jayson Doutree</h1>
+            <p class="typewriter" id="typewriter"></p>
         </div>
     </section>
 
     <section id="projects">
         <div class="container">
-            <h2 class="text-center mb-4">My Projects</h2>
+            <h2>My Projects</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="project-tile">
                         <h3>First Python Project</h3>
-                        <p>My first python project that pulls products from the NWS</p>
-                        <a href="https://github.com/ShowLowfinityHarvester/NWS-Product-Puller-" target="_blank" class="btn btn-outline-light">View Project</a>
+                        <p>My first Python project that pulls products from the NWS.</p>
+                        <a href="https://github.com/ShowLowfinityHarvester/NWS-Product-Puller-" target="_blank">View Project</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="project-tile">
                         <h3>Retro Webpage</h3>
-                        <p>A mid-2000s styled webpage with retro design, reflecting my aversion to minimalism.</p>
-                        <a href="#" class="btn btn-outline-light">View Project</a>
+                        <p>A mid-2000s styled webpage with retro design.</p>
+                        <a href="#">View Project</a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="project-tile">
                         <h3>Project Proposal</h3>
-                        <p>A detailed plan for a future aviation-tech integration project.</p>
-                        <a href="#" class="btn btn-outline-light">View Project</a>
+                        <p>A plan for a future aviation-tech integration project.</p>
+                        <a href="#">View Project</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="python-project">
+        <div class="container">
+            <h2>Featured Python Project: EAS Encoder</h2>
+            <div class="project-container">
+                <p>Create a custom Emergency Alert System (EAS) message by specifying the details below, then generate and play the alert or download it as a WAV file.</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="originator-code">Originator Code</label>
+                            <select id="originator-code">
+                                <option value="WXR">WXR - National Weather Service</option>
+                                <option value="CIV">CIV - Civil Authority</option>
+                                <option value="PEP">PEP - Primary Entry Point (National)</option>
+                                <option value="EAS">EAS - EAS Participant (Broadcaster)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-code">Event Code</label>
+                            <select id="event-code">
+                                <option value="TOR">TOR - Tornado Warning</option>
+                                <option value="SVR">SVR - Severe Thunderstorm Warning</option>
+                                <option value="FFW">FFW - Flash Flood Warning</option>
+                                <option value="EWW">EWW - Extreme Wind Warning</option>
+                                <option value="custom">Custom Event Code</option>
+                            </select>
+                            <input type="text" id="custom-event-code" placeholder="Enter custom 3-letter code (e.g., HUR)" style="display: none; margin-top: 10px;" maxlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="county-code">County Code (FIPS)</label>
+                            <input type="text" id="county-code" placeholder="e.g., 029001 (6 digits)" maxlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="originator-id">Originator ID</label>
+                            <input type="text" id="originator-id" placeholder="e.g., KPSR/NWS (up to 8 characters)" maxlength="8" title="Originator ID can be up to 8 characters, including letters, numbers, and special characters">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiration-time">Expiration Time (Minutes)</label>
+                            <select id="expiration-time">
+                                <option value="15">15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="60">60 minutes</option>
+                                <option value="120">120 minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="generate-play-btn">Generate & Play Alert</button>
+                    <button id="download-btn" disabled>Download WAV</button>
+                    <button id="download-code-btn">Download Python Code</button>
+                </div>
+                <p id="status">Ready to generate EAS alert.</p>
+            </div>
+        </div>
+    </section>
+
     <section id="profile">
         <div class="container">
-            <h2 class="text-center">About Me</h2>
-            <p class="text-center mb-4">My Timeline:</p>
-            <ul class="list-unstyled">
-                <li>2012: Started reviewing music at a young age, made a website documenting it, started an internet radio station</li>
-                <li>2013: Developed a blog page, updated the old website to have a more modern look, not too minimalistic</li>
-                <li>2020: Started looking into programming during the pandemic</li>
-                <li>2023: Made my first python program</li>
-                <li>2025: Crafted this professional portfolio, updated the website looks, adding all music reviews and blogs to this website!</li>
+            <h2>About Me</h2>
+            <ul class="timeline">
+                <li><i class="fas fa-music"></i><span>2012: Started reviewing music and made a website for it.</span></li>
+                <li><i class="fas fa-blog"></i><span>2013: Developed a blog page with a modern look.</span></li>
+                <li><i class="fas fa-code"></i><span>2020: Began programming during the pandemic.</span></li>
+                <li><i class="fas fa-laptop-code"></i><span>2023: Created my first Python program.</span></li>
+                <li><i class="fas fa-rocket"></i><span>2025: Built this portfolio to showcase my journey.</span></li>
             </ul>
+        </div>
+    </section>
+
+    <section id="certifications">
+        <div class="container">
+            <h2>Certifications</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="certification-tile">
+                        <i class="fab fa-python"></i>
+                        <h3>Python Certification</h3>
+                        <p>Completed a course in Python programming, focusing on data analysis.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="certification-tile">
+                        <i class="fas fa-database"></i>
+                        <h3>SQL Certification</h3>
+                        <p>Mastered SQL for database management and querying.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="certification-tile">
+                        <i class="fab fa-html5"></i>
+                        <h3>HTML/CSS Certification</h3>
+                        <p>Certified in HTML and CSS for responsive web design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="container">
+            <h2>Resume & Cover Letter</h2>
+            <div class="resume-links">
+                <a href="https://drive.google.com/file/d/resume-placeholder/view" target="_blank">View Resume</a>
+                <a href="https://drive.google.com/file/d/cover-letter-placeholder/view" target="_blank">View Cover Letter</a>
+            </div>
         </div>
     </section>
 
     <section id="social">
         <div class="container">
-            <h2 class="text-center mb-4">Connect with Me</h2>
+            <h2>Connect with Me</h2>
             <div class="social-icons d-flex justify-content-center">
                 <a href="https://github.com/showlowfinityharvester" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/jayson-doutree-78a63634b/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -440,20 +763,20 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
     <script>
-        
+        // Mobile menu adjustments
         const menuItemsContainer = document.querySelector('.menu-items');
         const dropdownMenu = document.querySelector('#dropdown-menu');
         const dropdown = document.querySelector('.dropdown');
         const menuItems = Array.from(document.querySelectorAll('.nav-link'));
         const staticDropdownItems = Array.from(document.querySelectorAll('.dropdown-item.static-item'));
-        let movedItems = new Map(); 
+        let movedItems = new Map();
 
         function adjustMenuForMobile() {
             const menuBarRect = document.querySelector('.navbar').getBoundingClientRect();
-            const maxVisibleX = menuBarRect.width - 20; 
+            const maxVisibleX = menuBarRect.width - 20;
 
-            
             let needsDropdown = false;
             menuItems.forEach(item => {
                 const itemRect = item.getBoundingClientRect();
@@ -462,10 +785,8 @@
                 }
             });
 
-            
             dropdown.style.display = needsDropdown ? 'inline-block' : 'none';
 
-            
             movedItems.forEach((clone, href) => {
                 const originalItem = menuItems.find(item => item.getAttribute('href') === href);
                 if (originalItem) {
@@ -478,7 +799,6 @@
                 }
             });
 
-            
             menuItems.forEach(item => {
                 const itemRect = item.getBoundingClientRect();
                 if (itemRect.right > maxVisibleX || itemRect.left < 0) {
@@ -491,15 +811,938 @@
                 }
             });
 
-            
             if (movedItems.size === 0) {
                 dropdown.style.display = 'none';
             }
         }
 
-        
         window.addEventListener('load', adjustMenuForMobile);
         window.addEventListener('resize', adjustMenuForMobile);
+
+        // Typewriter effect with random phrases
+        const typewriterElement = document.getElementById('typewriter');
+        const texts = [
+            'Future Developer',
+            'Aviation Enthusiast',
+            'Weather Nerd',
+            'Community Researcher',
+            'Aspiring Coder',
+            'Music reviewer',
+            'Do not press the number keys on your keyboard',
+        ];
+        let currentIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function getRandomIndex(current) {
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * texts.length);
+            } while (newIndex === current);
+            return newIndex;
+        }
+
+        function type() {
+            const currentText = texts[currentIndex];
+            if (!isDeleting && charIndex <= currentText.length) {
+                typewriterElement.textContent = currentText.substring(0, charIndex);
+                charIndex++;
+                setTimeout(type, 50);
+            } else if (isDeleting && charIndex >= 0) {
+                typewriterElement.textContent = currentText.substring(0, charIndex);
+                charIndex--;
+                setTimeout(type, 25);
+            } else if (!isDeleting && charIndex > currentText.length) {
+                setTimeout(() => {
+                    isDeleting = true;
+                    type();
+                }, 500);
+            } else if (isDeleting && charIndex < 0) {
+                isDeleting = false;
+                currentIndex = getRandomIndex(currentIndex);
+                setTimeout(type, 250);
+            }
+        }
+        type();
+
+        // Global particle system
+        const canvas = document.getElementById('global-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        const numberOfParticles = 10;
+        const maxParticles = 200;
+        let animationFrameId;
+        let lastScrollY = window.scrollY;
+        let lastBurstTime = 0;
+        const burstThrottle = 200;
+        let lastFrameTime = 0;
+        const targetFPS = 60;
+        const frameInterval = 1000 / targetFPS;
+        let isPageVisible = true;
+
+        // Color palette for bursts and fireworks
+        const colors = [
+            'rgba(255, 99, 71, 0.8)',   // Red
+            'rgba(74, 144, 226, 0.8)',  // Blue
+            'rgba(60, 179, 113, 0.8)',  // Green
+            'rgba(255, 215, 0, 0.8)',   // Yellow
+            'rgba(147, 112, 219, 0.8)'  // Purple
+        ];
+
+        // Utility function to blend two RGBA colors
+        function blendColors(color1, color2, factor) {
+            const parseRGBA = (color) => {
+                const match = color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+                return match ? {
+                    r: parseInt(match[1]),
+                    g: parseInt(match[2]),
+                    b: parseInt(match[3]),
+                    a: parseFloat(match[4])
+                } : { r: 255, g: 255, b: 255, a: 0.8 };
+            };
+
+            const c1 = parseRGBA(color1);
+            const c2 = parseRGBA(color2);
+
+            const r = Math.round(c1.r + (c2.r - c1.r) * factor);
+            const g = Math.round(c1.g + (c2.g - c1.g) * factor);
+            const b = Math.round(c1.b + (c2.b - c1.b) * factor);
+            const a = c1.a + (c2.a - c1.a) * factor;
+
+            return `rgba(${r}, ${g}, ${b}, ${a})`;
+        }
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class with updated types
+        class Particle {
+            constructor(type = 'background', x = null, y = null, explosionType = null, explosionColor = null, target = null, direction = null) {
+                this.type = type;
+                this.x = x !== null ? x : Math.random() * canvas.width;
+                this.y = y !== null ? y : Math.random() * canvas.height;
+                this.size = type === 'firework' ? 5 : (type === 'burst' || type === 'secondary' || type === 'tertiary' ? Math.random() * 5 + 3 : Math.random() * 4 + 2);
+                if (type === 'secondary') this.size *= 0.5;
+                if (type === 'tertiary') this.size *= 0.25;
+                if (type === 'fused') this.size = 10; // Smaller initial size for fused ball
+                this.opacity = 1;
+                this.explosionType = explosionType;
+                this.explosionColor = explosionColor || colors[Math.floor(Math.random() * colors.length)];
+                this.target = target; // For dual fireworks fusion (key 2)
+                this.direction = direction; // Direction for shooting at an angle ('left' or 'right')
+                this.angle = 0; // For spiral and ring
+                this.pulsePhase = 0; // For pulsing explosion
+                this.shakePhase = Math.random() * Math.PI * 2; // For natural shaking in fused ball
+                this.delayTimer = type === 'fused' ? 30 : 20; // Extended timer for fused ball animation
+                this.fuseTransition = type === 'firework' && explosionType === '2' ? 5 : 0; // Frames for fusion transition
+                this.isMerging = false; // Flag for merging state in key 2
+
+                if (type === 'background') {
+                    this.speedX = Math.random() * 0.5 - 0.25;
+                    this.speedY = Math.random() * 0.5 - 0.25;
+                    this.life = Infinity;
+                    this.color = 'rgba(17, 255, 0, 0.5)';
+                } else if (type === 'burst' || type === 'secondary' || type === 'tertiary') {
+                    this.life = type === 'tertiary' ? 60 : (type === 'secondary' ? 40 : 50); // Extended life for visibility
+                    this.color = this.explosionColor;
+                    this.setExplosionSpeeds();
+                } else if (type === 'firework') {
+                    if (explosionType === '2') {
+                        // Shoot at an angle toward each other
+                        if (this.direction === 'right') {
+                            this.speedX = 4; // Move right
+                            this.speedY = -5; // Move up
+                        } else if (this.direction === 'left') {
+                            this.speedX = -4; // Move left
+                            this.speedY = -5; // Move up
+                        }
+                    } else {
+                        // Other fireworks shoot straight upward
+                        this.speedX = 0;
+                        this.speedY = -Math.random() * 5 - 5;
+                    }
+                    this.life = 100; // Increased life for more time to interact
+                    this.color = 'rgba(255, 255, 255, 0.8)';
+                    this.exploded = false;
+                    this.explosionColor = colors[Math.floor(Math.random() * colors.length)];
+                } else if (type === 'fused') {
+                    this.speedX = 0;
+                    this.speedY = 0;
+                    this.life = 30; // Extended life for smoother animation
+                    this.color = this.explosionColor;
+                    this.exploded = false;
+                }
+            }
+
+            setExplosionSpeeds() {
+                const speed = Math.random() * 4 + 3;
+                if (this.explosionType === '0') { // Cascading Explosion
+                    const angle = Math.random() * Math.PI * 2;
+                    this.speedX = Math.cos(angle) * speed * 0.5;
+                    this.speedY = Math.sin(angle) * speed * 0.5;
+                } else if (this.explosionType === '2') { // Dual Fireworks Fusion (Ring Explosion after fusion)
+                    this.angle = (particlesArray.filter(p => p.explosionType === '2' && p.type === 'burst').length % 16) * (Math.PI / 8);
+                    this.speedX = Math.cos(this.angle) * speed;
+                    this.speedY = Math.sin(this.angle) * speed;
+                } else if (this.explosionType === '3') { // Spiral Explosion
+                    this.angle = Math.random() * Math.PI * 2;
+                    this.speedX = Math.cos(this.angle) * speed * 0.5;
+                    this.speedY = Math.sin(this.angle) * speed * 0.5;
+                } else if (this.explosionType === '4') { // Cluster Burst
+                    const angle = Math.random() * Math.PI * 2;
+                    this.speedX = Math.cos(angle) * speed * 0.2; // Initially tight
+                    this.speedY = Math.sin(angle) * speed * 0.2;
+                } else if (this.explosionType === '5') { // Pulsing Explosion (Glitter)
+                    const angle = Math.random() * Math.PI * 2;
+                    this.speedX = Math.cos(angle) * speed * 0.3;
+                    this.speedY = Math.sin(angle) * speed * 0.3;
+                    this.pulsePhase = Math.random() * Math.PI;
+                } else if (this.explosionType === '6') { // Ring Explosion
+                    this.angle = (particlesArray.filter(p => p.explosionType === '6' && p.type === 'burst').length % 16) * (Math.PI / 8);
+                    this.speedX = Math.cos(this.angle) * speed;
+                    this.speedY = Math.sin(this.angle) * speed;
+                } else if (this.explosionType === '7') { // Delayed Burst (initial small burst)
+                    const angle = Math.random() * Math.PI * 2;
+                    this.speedX = Math.cos(angle) * speed * 0.3;
+                    this.speedY = Math.sin(angle) * speed * 0.3;
+                } else if (this.explosionType === '8') { // Cross Explosion
+                    const direction = Math.floor(Math.random() * 4);
+                    if (direction === 0) { // Up
+                        this.speedX = 0;
+                        this.speedY = -speed;
+                    } else if (direction === 1) { // Down
+                        this.speedX = 0;
+                        this.speedY = speed;
+                    } else if (direction === 2) { // Left
+                        this.speedX = -speed;
+                        this.speedY = 0;
+                    } else { // Right
+                        this.speedX = speed;
+                        this.speedY = 0;
+                    }
+                } else if (this.explosionType === '9') { // Fountain Explosion
+                    this.speedX = (Math.random() - 0.5) * 2;
+                    this.speedY = -speed * 1.5; // Shoot upward
+                } else { // Default (key 1 - random burst)
+                    const angle = Math.random() * Math.PI * 2;
+                    this.speedX = Math.cos(angle) * speed;
+                    this.speedY = Math.sin(angle) * speed;
+                }
+            }
+
+            update() {
+                // Decrement life for explosion triggers
+                if (this.type === 'firework' || this.type === 'burst' || this.type === 'secondary' || this.type === 'tertiary' || this.type === 'fused') {
+                    this.life--;
+                }
+
+                // Update opacity for fading effect in cascading explosion
+                if (this.type === 'burst' || this.type === 'secondary' || this.type === 'tertiary') {
+                    this.opacity = Math.max(0, this.life / (this.type === 'tertiary' ? 60 : (this.type === 'secondary' ? 40 : 50)));
+                    // Remove particle if it's invisible (opacity <= 0)
+                    if (this.opacity <= 0) {
+                        return false;
+                    }
+                }
+
+                if (this.type === 'firework' && !this.exploded) {
+                    // Apply gravity to all fireworks
+                    this.speedY += 0.05;
+
+                    if (this.explosionType === '2' && this.target && !this.isMerging) { // Dual Fireworks Fusion
+                        const dx = this.target.x - this.x;
+                        const dy = this.target.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        // Check for collision (touching)
+                        const touchDistance = this.size + this.target.size;
+                        if (distance < touchDistance) {
+                            this.isMerging = true;
+                            this.target.isMerging = true;
+                            this.fuseTransition = 5; // Start the merging transition
+                        } else if (distance < 100 && distance > 0) { // Apply gravitational attraction if within 100 pixels
+                            const G = 5; // Gentle gravitational constant
+                            const force = G / (distance * distance + 1); // Avoid division by zero
+                            const forceX = (dx / distance) * force;
+                            const forceY = (dy / distance) * force;
+
+                            // Apply gravitational acceleration for orbiting
+                            this.speedX += forceX;
+                            this.target.speedX -= forceX; // Opposite force for the target
+                            this.speedY += forceY;
+                            this.target.speedY -= forceY;
+                        }
+                    } else if (this.life <= 20) { // Fallback explosion timing for other fireworks
+                        this.exploded = true;
+                        let numBurstParticles = this.explosionType === '1' ? 30 : 16; // Default for most explosions
+                        if (this.explosionType === '7') numBurstParticles = 8; // Smaller initial burst for delayed explosion
+                        for (let i = 0; i < numBurstParticles; i++) {
+                            if (particlesArray.length >= maxParticles) break;
+                            const explosionParticle = new Particle('burst', this.x, this.y, this.explosionType, this.explosionColor);
+                            particlesArray.push(explosionParticle);
+                        }
+                        return false; // Remove immediately upon explosion
+                    }
+                }
+
+                if (this.type === 'fused' && !this.exploded) {
+                    // Smoother growth using a logarithmic curve
+                    const growthProgress = (30 - this.life) / 30;
+                    this.size = 10 + 15 * (1 - Math.exp(-3 * growthProgress)); // Smooth growth from 10 to ~25
+                    // Natural shaking using sinusoidal oscillation
+                    this.shakePhase += 0.3;
+                    const shakeAmplitude = 2 * (this.life / 30); // Decreasing amplitude
+                    this.x += Math.sin(this.shakePhase) * shakeAmplitude;
+                    this.y += Math.cos(this.shakePhase) * shakeAmplitude;
+                    if (this.life <= 5) { // Explode after growth and shaking
+                        this.exploded = true;
+                        const numBurstParticles = 16; // Ring explosion with 16 particles
+                        for (let i = 0; i < numBurstParticles; i++) {
+                            if (particlesArray.length >= maxParticles) break;
+                            const explosionParticle = new Particle('burst', this.x, this.y, '2', this.explosionColor);
+                            particlesArray.push(explosionParticle);
+                        }
+                        return false; // Remove immediately upon explosion
+                    }
+                }
+
+                if (this.type === 'burst') {
+                    if (this.explosionType === '0' && this.life <= 30) { // Cascading Explosion - Stage 2
+                        for (let i = 0; i < 3; i++) {
+                            if (particlesArray.length >= maxParticles) break;
+                            const secondaryParticle = new Particle('secondary', this.x, this.y, this.explosionType, this.explosionColor);
+                            secondaryParticle.speedX = this.speedX + (Math.random() - 0.5) * 2;
+                            secondaryParticle.speedY = this.speedY + (Math.random() - 0.5) * 2;
+                            particlesArray.push(secondaryParticle);
+                        }
+                    } else if (this.explosionType === '3') { // Spiral Explosion
+                        this.angle += 0.1;
+                        this.speedX = Math.cos(this.angle) * 3;
+                        this.speedY = Math.sin(this.angle) * 3;
+                    } else if (this.explosionType === '4') { // Cluster Burst
+                        this.speedX *= 1.05; // Rapid spread after initial tight cluster
+                        this.speedY *= 1.05;
+                    } else if (this.explosionType === '5') { // Pulsing Explosion (Glitter)
+                        this.pulsePhase += 0.2;
+                        this.size = (Math.random() * 5 + 3) * (1 + 0.3 * Math.sin(this.pulsePhase));
+                    } else if (this.explosionType === '2' || this.explosionType === '6') { // Ring Explosion (used for Key 2 fusion)
+                        const expandSpeed = 1.05;
+                        this.speedX *= expandSpeed;
+                        this.speedY *= expandSpeed;
+                    } else if (this.explosionType === '7') { // Delayed Burst
+                        this.delayTimer--;
+                        if (this.delayTimer <= 0) {
+                            for (let i = 0; i < 16; i++) {
+                                if (particlesArray.length >= maxParticles) break;
+                                const explosionParticle = new Particle('burst', this.x, this.y, this.explosionType, this.explosionColor);
+                                particlesArray.push(explosionParticle);
+                            }
+                            this.delayTimer = Infinity; // Prevent multiple secondary bursts
+                        }
+                    } else if (this.explosionType === '9') { // Fountain Explosion
+                        this.speedY += 0.1; // Gravity pulls downward
+                    }
+                    this.speedY += 0.05; // Subtle gravity for bursts
+                }
+
+                if (this.type === 'secondary' && this.explosionType === '0' && this.life <= 20) { // Cascading Explosion - Stage 3
+                    for (let i = 0; i < 2; i++) {
+                        if (particlesArray.length >= maxParticles) break;
+                        const tertiaryParticle = new Particle('tertiary', this.x, this.y, this.explosionType, this.explosionColor);
+                        tertiaryParticle.speedX = this.speedX + (Math.random() - 0.5) * 1.5;
+                        tertiaryParticle.speedY = this.speedY + (Math.random() - 0.5) * 1.5;
+                        particlesArray.push(tertiaryParticle);
+                    }
+                }
+
+                if (this.type === 'secondary' || this.type === 'tertiary') {
+                    this.speedY += 0.05; // Gravity for secondary and tertiary particles
+                }
+
+                // Apply scroll adjustment only to non-firework particles or exploded fireworks
+                const scrollDelta = window.scrollY - lastScrollY;
+                if (this.type !== 'firework' || this.exploded) {
+                    this.y -= scrollDelta * 0.5;
+                }
+
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.type === 'background') {
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                }
+
+                // Only remove particles when they are off-screen, unless they are fireworks/fused that have exploded
+                return !(this.x < -this.size || this.x > canvas.width + this.size || 
+                         this.y < -this.size || this.y > canvas.height + this.size);
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                if (this.type === 'burst' || this.type === 'firework' || this.type === 'secondary' || this.type === 'tertiary' || this.type === 'fused') {
+                    ctx.globalAlpha = this.opacity;
+                }
+
+                // Add glowing light artifact for fused ball
+                if (this.type === 'fused' && !this.exploded) {
+                    const glowSize = this.size * 3;
+                    const glowOpacity = (this.life / 30) * 0.5; // Fade out as life decreases
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${glowOpacity})`; // White glow
+                    ctx.fill();
+                }
+
+                // Draw the particle itself
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        let mouse = {
+            x: null,
+            y: null
+        };
+
+        document.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+
+            const welcomeSection = document.getElementById('welcome-section');
+            const rect = welcomeSection.getBoundingClientRect();
+            if (event.clientY >= rect.top && event.clientY <= rect.bottom) {
+                const currentTime = Date.now();
+                if (currentTime - lastBurstTime >= burstThrottle && particlesArray.length < maxParticles) {
+                    for (let i = 0; i < 3; i++) {
+                        if (particlesArray.length >= maxParticles) break;
+                        particlesArray.push(new Particle('burst', mouse.x, mouse.y));
+                    }
+                    lastBurstTime = currentTime;
+                }
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            const welcomeSection = document.getElementById('welcome-section');
+            const rect = welcomeSection.getBoundingClientRect();
+            if (event.clientY >= rect.top && event.clientY <= rect.bottom) {
+                const clickX = event.clientX;
+                const clickY = event.clientY;
+                if (particlesArray.length < maxParticles) {
+                    particlesArray.push(new Particle('firework', clickX, clickY));
+                }
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            const welcomeSection = document.getElementById('welcome-section');
+            const rect = welcomeSection.getBoundingClientRect();
+            if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+                const keyCode = event.keyCode;
+                if (keyCode >= 48 && keyCode <= 57) {
+                    const number = String.fromCharCode(keyCode);
+                    if (particlesArray.length >= maxParticles) return;
+
+                    if (keyCode === 49) { // Number 1 key - Original fireworks
+                        for (let i = 0; i < 5; i++) {
+                            if (particlesArray.length >= maxParticles) break;
+                            const randomX = Math.random() * canvas.width;
+                            const y = rect.bottom;
+                            particlesArray.push(new Particle('firework', randomX, y, '1'));
+                        }
+                    } else if (keyCode === 50) { // Number 2 key - Dual Fireworks Fusion
+                        const randomX1 = canvas.width * 0.25; // Fixed starting positions
+                        const randomX2 = canvas.width * 0.75;
+                        const y = rect.bottom;
+                        const firework1 = new Particle('firework', randomX1, y, '2', null, null, 'right');
+                        const firework2 = new Particle('firework', randomX2, y, '2', null, null, 'left');
+                        firework1.target = firework2;
+                        firework2.target = firework1;
+                        firework1.explosionColor = firework2.explosionColor; // Same color for fusion
+                        particlesArray.push(firework1);
+                        particlesArray.push(firework2);
+                    } else { // Other number keys (0, 3-9)
+                        const randomX = Math.random() * canvas.width;
+                        const y = rect.bottom;
+                        particlesArray.push(new Particle('firework', randomX, y, number));
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function init() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                if (particlesArray.length >= maxParticles) break;
+                particlesArray.push(new Particle('background'));
+            }
+        }
+        init();
+
+        function animate(timestamp) {
+            if (!isPageVisible) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+                return;
+            }
+
+            if (timestamp - lastFrameTime < frameInterval) {
+                animationFrameId = requestAnimationFrame(animate);
+                return;
+            }
+            lastFrameTime = timestamp;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const newParticlesArray = [];
+            for (let i = 0; i < particlesArray.length; i++) {
+                const particle = particlesArray[i];
+                if (particle.update()) {
+                    particle.draw();
+                    newParticlesArray.push(particle);
+                }
+            }
+            particlesArray = newParticlesArray;
+
+            const hasBackgroundParticles = particlesArray.some(p => p.type === 'background');
+            if (!hasBackgroundParticles && particlesArray.length === 0) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+                return;
+            }
+
+            lastScrollY = window.scrollY;
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        if (particlesArray.length > 0) {
+            lastFrameTime = performance.now();
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            isPageVisible = document.visibilityState === 'visible';
+            if (isPageVisible && particlesArray.length > 0 && !animationFrameId) {
+                lastFrameTime = performance.now();
+                animationFrameId = requestAnimationFrame(animate);
+            } else if (!isPageVisible && animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            particlesArray = [];
+        });
+
+        const sections = [
+            { id: 'welcome-section', bg: 'linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(17, 255, 0, 0.4))', particleColor: 'rgba(17, 255, 0, 0.5)' },
+            { id: 'projects', bg: '#222', particleColor: 'rgba(255, 99, 71, 0.5)' },
+            { id: 'python-project', bg: '#1a1a1a', particleColor: 'rgba(74, 144, 226, 0.5)' },
+            { id: 'profile', bg: '#1a1a1a', particleColor: 'rgba(60, 179, 113, 0.5)' },
+            { id: 'certifications', bg: '#222', particleColor: 'rgba(255, 215, 0, 0.5)' },
+            { id: 'resume', bg: '#1a1a1a', particleColor: 'rgba(147, 112, 219, 0.5)' },
+            { id: 'social', bg: '#222', particleColor: 'rgba(255, 105, 180, 0.5)' }
+        ];
+
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.scrollY;
+            if (!animationFrameId && particlesArray.length > 0) {
+                lastFrameTime = performance.now();
+                animationFrameId = requestAnimationFrame(animate);
+            }
+
+            sections.forEach(section => {
+                const element = document.getElementById(section.id);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    element.style.background = section.bg;
+                    particlesArray.forEach(particle => {
+                        if (particle.type === 'background') {
+                            particle.color = section.particleColor;
+                        }
+                    });
+                }
+            });
+        });
+
+        // Python Project: EAS Encoder
+        let pyodideInstance = null;
+        let audioContext = null;
+        let audioElement = null;
+        let downloadUrl = null;
+        let audioSource = null; // For Web Audio API source node
+
+        async function loadPyodideAndRun() {
+            const statusElement = document.getElementById('status');
+            try {
+                if (typeof loadPyodide === 'undefined') {
+                    statusElement.textContent = 'Waiting for Pyodide to load...';
+                    let attempts = 0;
+                    const maxAttempts = 10;
+                    while (typeof loadPyodide === 'undefined' && attempts < maxAttempts) {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        attempts++;
+                    }
+                    if (typeof loadPyodide === 'undefined') {
+                        throw new Error('Pyodide script failed to load after multiple attempts. Please check your network connection and refresh the page.');
+                    }
+                }
+
+                statusElement.textContent = 'Loading Pyodide...';
+                pyodideInstance = await loadPyodide({
+                    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/"
+                });
+                await pyodideInstance.loadPackage(['numpy']);
+                await pyodideInstance.loadPackage('micropip');
+                const micropip = pyodideInstance.pyimport('micropip');
+                await micropip.install('EASGen');
+                await micropip.install('pydub');
+
+                statusElement.textContent = 'Pyodide, EASGen, and pydub loaded successfully. Ready to generate EAS alert.';
+            } catch (error) {
+                console.error('Failed to load Pyodide, EASGen, or pydub:', error);
+                statusElement.textContent = 'Error loading Pyodide, EASGen, or pydub: ' + error.message + '. Please refresh the page or check your network connection.';
+            }
+        }
+
+        // Form handling for custom event code
+        const eventCodeSelect = document.getElementById('event-code');
+        const customEventCodeInput = document.getElementById('custom-event-code');
+        eventCodeSelect.addEventListener('change', () => {
+            if (eventCodeSelect.value === 'custom') {
+                customEventCodeInput.style.display = 'block';
+            } else {
+                customEventCodeInput.style.display = 'none';
+            }
+        });
+
+        async function playAudio(blobUrl, statusElement) {
+            // Stop any existing audio
+            if (audioSource) {
+                audioSource.stop();
+                audioSource = null;
+            }
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.currentTime = 0;
+                if (document.body.contains(audioElement)) {
+                    document.body.removeChild(audioElement);
+                }
+                audioElement = null;
+            }
+            if (audioContext) {
+                await audioContext.close();
+                audioContext = null;
+            }
+
+            // Try HTML5 Audio first for simplicity
+            try {
+                audioElement = new Audio(blobUrl);
+                audioElement.controls = false;
+                document.body.appendChild(audioElement);
+                await audioElement.play();
+                statusElement.textContent = 'Playing EAS alert...';
+                audioElement.onended = () => {
+                    statusElement.textContent = 'EAS alert finished playing. You can now download the WAV file.';
+                    if (document.body.contains(audioElement)) {
+                        document.body.removeChild(audioElement);
+                    }
+                    audioElement = null;
+                };
+                return true;
+            } catch (error) {
+                console.error('HTML5 Audio playback failed:', error);
+                statusElement.textContent = 'HTML5 Audio playback failed: ' + error.message + '. Trying Web Audio API...';
+            }
+
+            // Fallback to Web Audio API
+            try {
+                const response = await fetch(blobUrl);
+                const arrayBuffer = await response.arrayBuffer();
+                audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 10000 });
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                audioSource = audioContext.createBufferSource();
+                audioSource.buffer = audioBuffer;
+                audioSource.connect(audioContext.destination);
+                audioSource.start();
+                statusElement.textContent = 'Playing EAS alert using Web Audio API...';
+                audioSource.onended = () => {
+                    statusElement.textContent = 'EAS alert finished playing. You can now download the WAV file.';
+                    audioSource = null;
+                };
+                return true;
+            } catch (error) {
+                console.error('Web Audio API playback failed:', error);
+                statusElement.textContent = 'Failed to play audio: ' + error.message + '. You can still download the WAV file to listen.';
+                return false;
+            }
+        }
+
+        async function generateEASAlert() {
+            const statusElement = document.getElementById('status');
+            const generatePlayBtn = document.getElementById('generate-play-btn');
+            const downloadBtn = document.getElementById('download-btn');
+
+            try {
+                if (!pyodideInstance) {
+                    throw new Error('Pyodide is not loaded yet.');
+                }
+
+                // Collect form inputs
+                const originatorCode = document.getElementById('originator-code').value;
+                let eventCode = document.getElementById('event-code').value;
+                if (eventCode === 'custom') {
+                    eventCode = document.getElementById('custom-event-code').value.toUpperCase();
+                }
+                const countyCode = document.getElementById('county-code').value;
+                const originatorId = document.getElementById('originator-id').value.toUpperCase();
+                const expirationMinutes = parseInt(document.getElementById('expiration-time').value);
+
+                // Validation
+                if (!/^[A-Z]{3}$/.test(eventCode)) {
+                    throw new Error('Event code must be exactly 3 uppercase letters.');
+                }
+                if (!/^\d{6}$/.test(countyCode)) {
+                    throw new Error('County code must be exactly 6 digits (FIPS format).');
+                }
+                if (originatorId.length > 8) {
+                    throw new Error('Originator ID must be 8 characters or fewer.');
+                }
+
+                // Convert expiration time to EAS format (+TTTT)
+                const expirationHours = Math.floor(expirationMinutes / 60);
+                const expirationMins = expirationMinutes % 60;
+                const expirationTime = `+${String(expirationHours).padStart(2, '0')}${String(expirationMins).padStart(2, '0')}`;
+
+                // Get current time for JJJHHMM (Julian date and time)
+                const now = new Date();
+                const startOfYear = new Date(now.getFullYear(), 0, 1);
+                const julianDay = Math.ceil((now - startOfYear) / (1000 * 60 * 60 * 24));
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const jjjhhmm = `${String(julianDay).padStart(3, '0')}${hours}${minutes}`;
+
+                // Construct the SAME header
+                const sameHeader = `ZCZC-${originatorCode}-${eventCode}-${countyCode}${expirationTime}-${jjjhhmm}-${originatorId}-`;
+
+                generatePlayBtn.disabled = true;
+                downloadBtn.disabled = true;
+                statusElement.textContent = 'Generating EAS alert...';
+
+                // Python code to generate an EAS alert using EASGen and save as WAV
+                const pythonCode = `
+import numpy as np
+from EASGen import EASGen
+import io
+import struct
+
+# Generate EAS alert using EASGen
+def generate_eas_alert(header):
+    alert = EASGen.genEAS(
+        header=header,
+        attentionTone=True,
+        endOfMessage=True
+    )
+    # Convert to raw samples
+    audio_data = np.array(alert.get_array_of_samples(), dtype=np.int16)
+    audio_data = audio_data / np.max(np.abs(audio_data)) * 0.9  # Normalize to prevent clipping
+    return audio_data
+
+def write_wav(audio_data, sample_rate=10000):
+    # Normalize audio to prevent clipping
+    audio_data = (audio_data * 32767).astype(np.int16)  # Convert to 16-bit PCM
+
+    # Write WAV file
+    buffer = io.BytesIO()
+    num_samples = len(audio_data)
+    num_channels = 1
+    sample_width = 2  # 16-bit audio
+
+    # WAV header
+    buffer.write(b'RIFF')
+    buffer.write(struct.pack('<L', 36 + num_samples * num_channels * sample_width))
+    buffer.write(b'WAVE')
+    buffer.write(b'fmt ')
+    buffer.write(struct.pack('<L', 16))  # Subchunk size
+    buffer.write(struct.pack('<H', 1))  # Audio format (PCM)
+    buffer.write(struct.pack('<H', num_channels))
+    buffer.write(struct.pack('<L', sample_rate))
+    buffer.write(struct.pack('<L', sample_rate * num_channels * sample_width))
+    buffer.write(struct.pack('<H', num_channels * sample_width))
+    buffer.write(struct.pack('<H', 8 * sample_width))
+    buffer.write(b'data')
+    buffer.write(struct.pack('<L', num_samples * num_channels * sample_width))
+
+    # Write audio data
+    for sample in audio_data:
+        buffer.write(struct.pack('<h', sample))
+
+    return buffer.getvalue()
+
+# Inputs from JavaScript
+header = "${sameHeader}"
+sample_rate = 24000  # EASGen typically generates at 8000 Hz
+
+# Generate the EAS alert
+audio_data = generate_eas_alert(header)
+
+# Convert to WAV for download and playback
+wav_data = write_wav(audio_data, sample_rate)
+`;
+
+                await pyodideInstance.runPythonAsync(pythonCode);
+
+                // Extract WAV data
+                const wavData = pyodideInstance.globals.get('wav_data').toJs();
+                const wavArray = new Uint8Array(wavData);
+                const blob = new Blob([wavArray], { type: 'audio/wav' });
+
+                // Create Blob URL for playback and download
+                if (downloadUrl) {
+                    URL.revokeObjectURL(downloadUrl);
+                }
+                downloadUrl = URL.createObjectURL(blob);
+                downloadBtn.disabled = false;
+
+                // Play the audio
+                const playbackSuccess = await playAudio(downloadUrl, statusElement);
+                if (!playbackSuccess) {
+                    statusElement.textContent = 'Failed to play audio in browser. You can still download the WAV file to listen.';
+                }
+            } catch (error) {
+                console.error('Error generating EAS alert:', error);
+                statusElement.textContent = 'Error generating EAS alert: ' + error.message;
+            } finally {
+                generatePlayBtn.disabled = false;
+            }
+        }
+
+        // Download WAV handler
+        document.getElementById('download-btn').addEventListener('click', () => {
+            if (downloadUrl) {
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = 'eas_alert.wav';
+                a.click();
+            } else {
+                const statusElement = document.getElementById('status');
+                statusElement.textContent = 'No WAV file available to download. Please generate the alert first.';
+            }
+        });
+
+        // Download Python code
+        document.getElementById('download-code-btn').addEventListener('click', () => {
+            const pythonCode = `
+import numpy as np
+from EASGen import EASGen
+import io
+import struct
+
+# Generate EAS alert using EASGen
+def generate_eas_alert(header):
+    alert = EASGen.genEAS(
+        header=header,
+        attentionTone=True,
+        endOfMessage=True
+    )
+    # Convert to raw samples
+    audio_data = np.array(alert.get_array_of_samples(), dtype=np.int16)
+    audio_data = audio_data / np.max(np.abs(audio_data)) * 0.9  # Normalize to prevent clipping
+    return audio_data
+
+def write_wav(audio_data, sample_rate=8000, filename='eas_alert.wav'):
+    # Normalize audio to prevent clipping
+    audio_data = (audio_data * 32767).astype(np.int16)  # Convert to 16-bit PCM
+
+    # Write WAV file
+    with open(filename, 'wb') as f:
+        num_samples = len(audio_data)
+        num_channels = 1
+        sample_width = 2  # 16-bit audio
+
+        # WAV header
+        f.write(b'RIFF')
+        f.write(struct.pack('<L', 36 + num_samples * num_channels * sample_width))
+        f.write(b'WAVE')
+        f.write(b'fmt ')
+        f.write(struct.pack('<L', 16))  # Subchunk size
+        f.write(struct.pack('<H', 1))  # Audio format (PCM)
+        f.write(struct.pack('<H', num_channels))
+        f.write(struct.pack('<L', sample_rate))
+        f.write(struct.pack('<L', sample_rate * num_channels * sample_width))
+        f.write(struct.pack('<H', num_channels * sample_width))
+        f.write(struct.pack('<H', 8 * sample_width))
+        f.write(b'data')
+        f.write(struct.pack('<L', num_samples * num_channels * sample_width))
+
+        # Write audio data
+        for sample in audio_data:
+            f.write(struct.pack('<h', sample))
+
+# Example usage
+if __name__ == "__main__":
+    header = "ZCZC-WXR-TOR-029001+0030-1210901-KPSR/NWS-"
+    sample_rate = 8000
+    audio_data = generate_eas_alert(header)
+    write_wav(audio_data, sample_rate)
+`;
+            const blob = new Blob([pythonCode], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'eas_encoder.py';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Initialize Pyodide when the page loads
+        window.addEventListener('load', loadPyodideAndRun);
+
+        // Bind button event
+        document.getElementById('generate-play-btn').addEventListener('click', generateEASAlert);
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', () => {
+            if (downloadUrl) {
+                URL.revokeObjectURL(downloadUrl);
+                downloadUrl = null;
+            }
+            if (audioSource) {
+                audioSource.stop();
+                audioSource = null;
+            }
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.currentTime = 0;
+                if (document.body.contains(audioElement)) {
+                    document.body.removeChild(audioElement);
+                }
+                audioElement = null;
+            }
+            if (audioContext) {
+                audioContext.close();
+                audioContext = null;
+            }
+        });
     </script>
 </body>
-</html> <!-- ABQ!!!!! -->
+</html>
