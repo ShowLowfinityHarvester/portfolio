@@ -668,7 +668,7 @@
                         </div>
                         <div class="form-group">
                             <label for="county-code">County Code (FIPS)</label>
-                            <input type="text" id="county-code" placeholder="e.g., 029001 (6 digits)" maxlength="6">
+                            <input type="text" id="county-code" placeholder="e.g., 029001 (6 digits)" maxlength="9999">
                         </div>
                         <div class="form-group">
                             <label for="originator-id">Originator ID</label>
@@ -1520,9 +1520,6 @@
                 // Validation
                 if (!/^[A-Z]{3}$/.test(eventCode)) {
                     throw new Error('Event code must be exactly 3 uppercase letters.');
-                }
-                if (!/^\d{6}$/.test(countyCode)) {
-                    throw new Error('County code must be exactly 6 digits (FIPS format).');
                 }
                 if (originatorId.length > 8) {
                     throw new Error('Originator ID must be 8 characters or fewer.');
