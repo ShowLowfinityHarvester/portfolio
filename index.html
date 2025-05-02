@@ -247,10 +247,7 @@
         }
 
         #python-project select,
-        #python-project input[type="text"],
-        #python-project input[type="date"],
-        #python-project input[type="time"],
-        #python-project textarea {
+        #python-project input[type="text"] {
             width: 100%;
             max-width: 300px;
             padding: 8px;
@@ -262,29 +259,9 @@
         }
 
         #python-project select:focus,
-        #python-project input[type="text"]:focus,
-        #python-project input[type="date"]:focus,
-        #python-project input[type="time"]:focus,
-        #python-project textarea:focus {
+        #python-project input[type="text"]:focus {
             outline: none;
             border-color: #11ff00;
-        }
-
-        #python-project textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        #python-project .checkbox-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        #python-project .checkbox-group label {
-            margin-left: 10px;
-            margin-bottom: 0;
         }
 
         #python-project .controls {
@@ -409,6 +386,39 @@
             font-size: 1rem;
         }
 
+        #resume {
+            padding: 60px 0;
+            background-color: #1a1a1a;
+            transition: background 0.5s ease;
+        }
+
+        #resume h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .resume-links {
+            text-align: center;
+        }
+
+        .resume-links a {
+            color: #e0e0e0;
+            background-color: #3a3a3a;
+            border: 1px solid #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .resume-links a:hover {
+            background-color: #11ff00; /* Doutree Green */
+            color: #fff;
+        }
+
         #social {
             padding: 60px 0;
             background-color: #222;
@@ -486,7 +496,7 @@
                 font-size: 1.3rem;
             }
 
-            .project-tile a {
+            .project-tile a, .resume-links a {
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
@@ -496,7 +506,7 @@
                 padding: 12px;
             }
 
-            #python-project h2, #profile h2, #certifications h2, #social h2 {
+            #python-project h2, #profile h2, #certifications h2, #resume h2, #social h2 {
                 font-size: 2rem;
             }
 
@@ -515,10 +525,7 @@
             }
 
             #python-project select,
-            #python-project input[type="text"],
-            #python-project input[type="date"],
-            #python-project input[type="time"],
-            #python-project textarea {
+            #python-project input[type="text"] {
                 max-width: 100%;
             }
         }
@@ -578,6 +585,7 @@
                 <a class="nav-link" href="#python-project"><i class="fas fa-code"></i> Python Project</a>
                 <a class="nav-link" href="#profile"><i class="fas fa-user-tie"></i> Profile</a>
                 <a class="nav-link" href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
+                <a class="nav-link" href="#resume"><i class="fas fa-file-alt"></i> Resume</a>
                 <a class="nav-link" href="#social"><i class="fas fa-envelope"></i> Contact</a>
             </div>
         </div>
@@ -589,6 +597,7 @@
                 <a class="dropdown-item static-item" href="#python-project"><i class="fas fa-code"></i> Python Project</a>
                 <a class="dropdown-item static-item" href="#profile"><i class="fas fa-user-tie"></i> Profile</a>
                 <a class="dropdown-item static-item" href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
+                <a class="dropdown-item static-item" href="#resume"><i class="fas fa-file-alt"></i> Resume</a>
                 <a class="dropdown-item static-item" href="#social"><i class="fas fa-envelope"></i> Contact</a>
             </div>
         </div>
@@ -649,17 +658,97 @@
                         <div class="form-group">
                             <label for="event-code">Event Code</label>
                             <select id="event-code">
-                                <option value="TOR">TOR - Tornado Warning</option>
-                                <option value="SVR">SVR - Severe Thunderstorm Warning</option>
-                                <option value="FFW">FFW - Flash Flood Warning</option>
+                                <option value="AVA">AVA - Avalanche Watch</option>
+                                <option value="AVW">AVW - Avalanche Warning</option>
+                                <option value="BHW">BHW - Biological Hazard Warning</option>
+                                <option value="BLU">BLU - Blue Alert</option>
+                                <option value="BWW">BWW - Boil Water Warning</option>
+                                <option value="BZW">BZW - Blizzard Warning</option>
+                                <option value="CAE">CAE - Child Abduction Emergency</option>
+                                <option value="CDW">CDW - Civil Danger Warning</option>
+                                <option value="CEM">CEM - Civil Emergency Message</option>
+                                <option value="CFA">CFA - Coastal Flood Watch</option>
+                                <option value="CFW">CFW - Coastal Flood Warning</option>
+                                <option value="CHW">CHW - Chemical Hazard Warning</option>
+                                <option value="CWW">CWW - Contaminated Water Warning</option>
+                                <option value="DBA">DBA - Dam Watch</option>
+                                <option value="DBW">DBW - Dam Break Warning</option>
+                                <option value="DEW">DEW - Contagious Disease Warning</option>
+                                <option value="DMO">DMO - Practice/Demo Warning</option>
+                                <option value="DSW">DSW - Dust Storm Warning</option>
+                                <option value="EAN">EAN - National Emergency Message</option>
+                                <option value="EAT">EAT - Emergency Action Termination</option>
+                                <option value="EQW">EQW - Earthquake Warning</option>
+                                <option value="EVA">EVA - Evacuation Watch</option>
+                                <option value="EVI">EVI - Evacuation Immediate</option>
                                 <option value="EWW">EWW - Extreme Wind Warning</option>
+                                <option value="FFA">FFA - Flash Flood Watch</option>
+                                <option value="FFS">FFS - Flash Flood Statement</option>
+                                <option value="FFW">FFW - Flash Flood Warning</option>
+                                <option value="FLA">FLA - Flood Watch</option>
+                                <option value="FLS">FLS - Flood Statement</option>
+                                <option value="FLW">FLW - Flood Warning</option>
+                                <option value="FRW">FRW - Fire Warning</option>
+                                <option value="FSW">FSW - Flash Freeze Warning</option>
+                                <option value="FZW">FZW - Freeze Warning</option>
+                                <option value="FCW">FCW - Food Contamination Warning</option>
+                                <option value="HLS">HLS - Hurricane Local Statement</option>
+                                <option value="HMW">HMW - Hazardous Materials Warning</option>
+                                <option value="HUA">HUA - Hurricane Watch</option>
+                                <option value="HUW">HUW - Hurricane Warning</option>
+                                <option value="HWA">HWA - High Wind Watch</option>
+                                <option value="HWW">HWW - High Wind Warning</option>
+                                <option value="IBW">IBW - Iceberg Warning</option>
+                                <option value="IFW">IFW - Industrial Fire Warning</option>
+                                <option value="LAE">LAE - Local Area Emergency</option>
+                                <option value="LEW">LEW - Law Enforcement Warning</option>
+                                <option value="LSW">LSW - Landslide Warning</option>
+                                <option value="NAT">NAT - National Audible Test</option>
+                                <option value="NIC">NIC - National Information Center</option>
+                                <option value="NMN">NMN - Network Notification Message</option>
+                                <option value="NPT">NPT - Nationwide Periodic Test</option>
+                                <option value="NST">NST - National Silent Test</option>
+                                <option value="NUW">NUW - Nuclear Power Plant Warning</option>
+                                <option value="POS">POS - Power Outage Advisory</option>
+                                <option value="RHW">RHW - Radiological Hazard Warning</option>
+                                <option value="RMT">RMT - Required Monthly Test</option>
+                                <option value="RWT">RWT - Required Weekly Test</option>
+                                <option value="SMW">SMW - Special Marine Warning</option>
+                                <option value="SPS">SPS - Special Weather Statement</option>
+                                <option value="SPW">SPW - Shelter In-Place Warning</option>
+                                <option value="SQW">SQW - Snow Squall Warning</option>
+                                <option value="SSA">SSA - Storm Surge Watch</option>
+                                <option value="SSW">SSW - Storm Surge Warning</option>
+                                <option value="SVA">SVA - Severe Thunderstorm Watch</option>
+                                <option value="SVR">SVR - Severe Thunderstorm Warning</option>
+                                <option value="SVS">SVS - Severe Weather Statement</option>
+                                <option value="TOA">TOA - Tornado Watch</option>
+                                <option value="TOE">TOE - 911 Telephone Outage Emergency</option>
+                                <option value="TOR">TOR - Tornado Warning</option>
+                                <option value="TRA">TRA - Tropical Storm Watch</option>
+                                <option value="TRW">TRW - Tropical Storm Warning</option>
+                                <option value="TSA">TSA - Tsunami Watch</option>
+                                <option value="TSW">TSW - Tsunami Warning</option>
+                                <option value="TXB">TXB - Transmitter Backup On</option>
+                                <option value="TXF">TXF - Transmitter Carrier Off</option>
+                                <option value="TXO">TXO - Transmitter Carrier On</option>
+                                <option value="TXP">TXP - Transmitter Primary On</option>
+                                <option value="VOW">VOW - Volcano Warning</option>
+                                <option value="WFA">WFA - Wild Fire Watch</option>
+                                <option value="WFW">WFW - Wild Fire Warning</option>
+                                <option value="WSA">WSA - Winter Storm Watch</option>
+                                <option value="WSW">WSW - Winter Storm Warning</option>
+                                <option value="??A">??A - Unrecognized Watch</option>
+                                <option value="??E">??E - Unrecognized Emergency</option>
+                                <option value="??S">??S - Unrecognized Statement</option>
+                                <option value="??W">??W - Unrecognized Warning</option>
                                 <option value="custom">Custom Event Code</option>
                             </select>
                             <input type="text" id="custom-event-code" placeholder="Enter custom 3-letter code (e.g., HUR)" style="display: none; margin-top: 10px;" maxlength="3">
                         </div>
                         <div class="form-group">
                             <label for="county-code">County Code (FIPS)</label>
-                            <input type="text" id="county-code" placeholder="e.g., 029001-029002 (up to 31 counties)" maxlength="216">
+                            <input type="text" id="county-code" placeholder="e.g., 029001 (6 digits)" maxlength="9999">
                         </div>
                         <div class="form-group">
                             <label for="originator-id">Originator ID</label>
@@ -673,26 +762,6 @@
                                 <option value="60">60 minutes</option>
                                 <option value="120">120 minutes</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="event-date">Event Date</label>
-                            <input type="date" id="event-date">
-                        </div>
-                        <div class="form-group">
-                            <label for="event-time">Event Time</label>
-                            <input type="time" id="event-time">
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="attention-tone" checked>
-                            <label for="attention-tone">Include Attention Tone</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center mt-4">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="custom-header">Custom SAME Header (ZCZC- is automatically included)</label>
-                            <textarea id="custom-header" placeholder="Enter any SAME header without ZCZC- (e.g., WXR-TOR-029001+0030-1210901-KPSR/NWS-)"></textarea>
                         </div>
                     </div>
                 </div>
@@ -744,6 +813,16 @@
                         <p>Certified in HTML and CSS for responsive web design.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="container">
+            <h2>Resume & Cover Letter</h2>
+            <div class="resume-links">
+                <a href="https://drive.google.com/file/d/resume-placeholder/view" target="_blank">View Resume</a>
+                <a href="https://drive.google.com/file/d/cover-letter-placeholder/view" target="_blank">View Cover Letter</a>
             </div>
         </div>
     </section>
@@ -1360,6 +1439,7 @@
             { id: 'python-project', bg: '#1a1a1a', particleColor: 'rgba(74, 144, 226, 0.5)' },
             { id: 'profile', bg: '#1a1a1a', particleColor: 'rgba(60, 179, 113, 0.5)' },
             { id: 'certifications', bg: '#222', particleColor: 'rgba(255, 215, 0, 0.5)' },
+            { id: 'resume', bg: '#1a1a1a', particleColor: 'rgba(147, 112, 219, 0.5)' },
             { id: 'social', bg: '#222', particleColor: 'rgba(255, 105, 180, 0.5)' }
         ];
 
@@ -1390,7 +1470,6 @@
         let audioElement = null;
         let downloadUrl = null;
         let audioSource = null; // For Web Audio API source node
-        let isPlaying = false;
 
         async function loadPyodideAndRun() {
             const statusElement = document.getElementById('status');
@@ -1436,10 +1515,8 @@
             }
         });
 
-        async function stopAudio() {
-            const statusElement = document.getElementById('status');
-            const generatePlayBtn = document.getElementById('generate-play-btn');
-
+        async function playAudio(blobUrl, statusElement) {
+            // Stop any existing audio
             if (audioSource) {
                 audioSource.stop();
                 audioSource = null;
@@ -1457,27 +1534,14 @@
                 audioContext = null;
             }
 
-            isPlaying = false;
-            generatePlayBtn.textContent = 'Generate & Play Alert';
-            statusElement.textContent = 'Audio stopped. You can now generate a new alert or download the WAV file.';
-        }
-
-        async function playAudio(blobUrl, statusElement) {
-            // Stop any existing audio
-            await stopAudio();
-
             // Try HTML5 Audio first for simplicity
             try {
                 audioElement = new Audio(blobUrl);
                 audioElement.controls = false;
                 document.body.appendChild(audioElement);
                 await audioElement.play();
-                isPlaying = true;
                 statusElement.textContent = 'Playing EAS alert...';
                 audioElement.onended = () => {
-                    isPlaying = false;
-                    const generatePlayBtn = document.getElementById('generate-play-btn');
-                    generatePlayBtn.textContent = 'Generate & Play Alert';
                     statusElement.textContent = 'EAS alert finished playing. You can now download the WAV file.';
                     if (document.body.contains(audioElement)) {
                         document.body.removeChild(audioElement);
@@ -1500,12 +1564,8 @@
                 audioSource.buffer = audioBuffer;
                 audioSource.connect(audioContext.destination);
                 audioSource.start();
-                isPlaying = true;
                 statusElement.textContent = 'Playing EAS alert using Web Audio API...';
                 audioSource.onended = () => {
-                    isPlaying = false;
-                    const generatePlayBtn = document.getElementById('generate-play-btn');
-                    generatePlayBtn.textContent = 'Generate & Play Alert';
                     statusElement.textContent = 'EAS alert finished playing. You can now download the WAV file.';
                     audioSource = null;
                 };
@@ -1521,78 +1581,45 @@
             const statusElement = document.getElementById('status');
             const generatePlayBtn = document.getElementById('generate-play-btn');
             const downloadBtn = document.getElementById('download-btn');
-            const customHeader = document.getElementById('custom-header').value.trim();
-            const attentionTone = document.getElementById('attention-tone').checked;
-
-            if (isPlaying) {
-                await stopAudio();
-                return;
-            }
 
             try {
                 if (!pyodideInstance) {
                     throw new Error('Pyodide is not loaded yet.');
                 }
 
-                let sameHeader;
-
-                if (customHeader) {
-                    // Use custom header, prepend ZCZC-, no strict validation
-                    sameHeader = `ZCZC-${customHeader}`;
-                } else {
-                    // Collect form inputs
-                    const originatorCode = document.getElementById('originator-code').value;
-                    let eventCode = document.getElementById('event-code').value;
-                    if (eventCode === 'custom') {
-                        eventCode = document.getElementById('custom-event-code').value.toUpperCase();
-                    }
-                    const countyCode = document.getElementById('county-code').value;
-                    const originatorId = document.getElementById('originator-id').value.toUpperCase();
-                    const expirationMinutes = parseInt(document.getElementById('expiration-time').value);
-                    const eventDate = document.getElementById('event-date').value;
-                    const eventTime = document.getElementById('event-time').value;
-
-                    // Validation for non-custom header
-                    if (!/^[A-Z]{3}$/.test(eventCode)) {
-                        throw new Error('Event code must be exactly 3 uppercase letters.');
-                    }
-                    if (originatorId.length > 8) {
-                        throw new Error('Originator ID must be 8 characters or fewer.');
-                    }
-                    if (countyCode) {
-                        const countyCodes = countyCode.split('-').filter(code => code);
-                        if (countyCodes.length > 31) {
-                            throw new Error('Cannot specify more than 31 counties.');
-                        }
-                        for (const code of countyCodes) {
-                            if (!/^\d{6}$/.test(code)) {
-                                throw new Error('Each county FIPS code must be exactly 6 digits.');
-                            }
-                        }
-                    }
-                    if (!eventDate || !eventTime) {
-                        throw new Error('Event date and time are required.');
-                    }
-
-                    // Convert expiration time to EAS format (+TTTT)
-                    const expirationHours = Math.floor(expirationMinutes / 60);
-                    const expirationMins = expirationMinutes % 60;
-                    const expirationTime = `+${String(expirationHours).padStart(2, '0')}${String(expirationMins).padStart(2, '0')}`;
-
-                    // Convert date and time to JJJHHMM (Julian date and time)
-                    const eventDateTime = new Date(`${eventDate}T${eventTime}`);
-                    if (isNaN(eventDateTime.getTime())) {
-                        throw new Error('Invalid date or time provided.');
-                    }
-                    const startOfYear = new Date(eventDateTime.getFullYear(), 0, 1);
-                    const julianDay = Math.ceil((eventDateTime - startOfYear) / (1000 * 60 * 60 * 24));
-                    const hours = String(eventDateTime.getHours()).padStart(2, '0');
-                    const minutes = String(eventDateTime.getMinutes()).padStart(2, '0');
-                    const jjjhhmm = `${String(julianDay).padStart(3, '0')}${hours}${minutes}`;
-
-                    // Construct the SAME header
-                    sameHeader = `ZCZC-${originatorCode}-${eventCode}-${countyCode || '029001'}${expirationTime}-${jjjhhmm}-${originatorId}-`;
+                // Collect form inputs
+                const originatorCode = document.getElementById('originator-code').value;
+                let eventCode = document.getElementById('event-code').value;
+                if (eventCode === 'custom') {
+                    eventCode = document.getElementById('custom-event-code').value.toUpperCase();
                 }
+                const countyCode = document.getElementById('county-code').value;
+                const originatorId = document.getElementById('originator-id').value.toUpperCase();
+                const expirationMinutes = parseInt(document.getElementById('expiration-time').value);
+
+                // Validation
+                if (!/^[A-Z]{3}$/.test(eventCode)) {
+                    throw new Error('Event code must be exactly 3 uppercase letters.');
+                }
+                if (originatorId.length > 8) {
+                    throw new Error('Originator ID must be 8 characters or fewer.');
+                }
+
+                // Convert expiration time to EAS format (+TTTT)
+                const expirationHours = Math.floor(expirationMinutes / 60);
+                const expirationMins = expirationMinutes % 60;
+                const expirationTime = `+${String(expirationHours).padStart(2, '0')}${String(expirationMins).padStart(2, '0')}`;
+
+                // Get current time for JJJHHMM (Julian date and time)
+                const now = new Date();
+                const startOfYear = new Date(now.getFullYear(), 0, 1);
+                const julianDay = Math.ceil((now - startOfYear) / (1000 * 60 * 60 * 24));
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const jjjhhmm = `${String(julianDay).padStart(3, '0')}${hours}${minutes}`;
+
+                // Construct the SAME header
+                const sameHeader = `ZCZC-${originatorCode}-${eventCode}-${countyCode}${expirationTime}-${jjjhhmm}-${originatorId}-`;
 
                 generatePlayBtn.disabled = true;
                 downloadBtn.disabled = true;
@@ -1606,10 +1633,10 @@ import io
 import struct
 
 # Generate EAS alert using EASGen
-def generate_eas_alert(header, attention_tone):
+def generate_eas_alert(header):
     alert = EASGen.genEAS(
         header=header,
-        attentionTone=attention_tone,
+        attentionTone=True,
         endOfMessage=True
     )
     # Convert to raw samples
@@ -1650,11 +1677,10 @@ def write_wav(audio_data, sample_rate=10000):
 
 # Inputs from JavaScript
 header = "${sameHeader}"
-attention_tone = ${attentionTone ? 'True' : 'False'}
 sample_rate = 24000  # EASGen typically generates at 8000 Hz
 
 # Generate the EAS alert
-audio_data = generate_eas_alert(header, attention_tone)
+audio_data = generate_eas_alert(header)
 
 # Convert to WAV for download and playback
 wav_data = write_wav(audio_data, sample_rate)
@@ -1676,10 +1702,7 @@ wav_data = write_wav(audio_data, sample_rate)
 
                 // Play the audio
                 const playbackSuccess = await playAudio(downloadUrl, statusElement);
-                if (playbackSuccess) {
-                    generatePlayBtn.textContent = 'Stop';
-                } else {
-                    generatePlayBtn.textContent = 'Generate & Play Alert';
+                if (!playbackSuccess) {
                     statusElement.textContent = 'Failed to play audio in browser. You can still download the WAV file to listen.';
                 }
             } catch (error) {
@@ -1712,10 +1735,10 @@ import io
 import struct
 
 # Generate EAS alert using EASGen
-def generate_eas_alert(header, attention_tone=True):
+def generate_eas_alert(header):
     alert = EASGen.genEAS(
         header=header,
-        attentionTone=attention_tone,
+        attentionTone=True,
         endOfMessage=True
     )
     # Convert to raw samples
@@ -1756,7 +1779,7 @@ def write_wav(audio_data, sample_rate=8000, filename='eas_alert.wav'):
 if __name__ == "__main__":
     header = "ZCZC-WXR-TOR-029001+0030-1210901-KPSR/NWS-"
     sample_rate = 8000
-    audio_data = generate_eas_alert(header, attention_tone=True)
+    audio_data = generate_eas_alert(header)
     write_wav(audio_data, sample_rate)
 `;
             const blob = new Blob([pythonCode], { type: 'text/plain' });
